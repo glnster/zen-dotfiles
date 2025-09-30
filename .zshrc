@@ -8,22 +8,16 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Have installed:
-# - rust
-# - snap
-# - fzf
-# - bd
-# - spaceship
-# - zsh auto completions
-# - zsh auto suggestions
-# - zsh syntax highlisting
-
 
 # Add cargo to path
 PATH="$PATH:$HOME/.cargo/bin"
 
 # Add snap to path
-PATH="$PATH:/snap/bin"
+if [ -d "$PATH/snap/bin" ] ; then
+    PATH="$PATH:/snap/bin"
+fi
+
+#PATH="$PATH:/snap/bin"
 
 # Source custom stuff
 source ./aliases
@@ -43,7 +37,7 @@ bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 export KEYTIMEOUT=1
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+# Keep lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000
 SAVEHIST=$HISTSIZE
 HISTFILE=~/.zsh_history
