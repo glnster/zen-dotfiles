@@ -14,7 +14,7 @@ A new, Zen (minimal) Zsh setup
 ### 2. Clone this repo into a dotfiles directory
 
 ### 3. Create symlinks
-Save copies of the following files for back if you have them:
+Save copies of the following files for backup if you have them:
 - aliases
 - functions
 - .zshrc
