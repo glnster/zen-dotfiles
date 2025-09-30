@@ -1,0 +1,8 @@
+#Colorized alias list with line nums
+al() {
+  alias | cat -l bash
+}
+
+alg() {
+  alias | grep 'git' | cat -l bash
+}

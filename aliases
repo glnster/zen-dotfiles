@@ -1,0 +1,240 @@
+#####
+# for zsh & bash
+#--- with some from mathiasbynens/dotfiles
+
+# ------------ FILE SYS -------------
+alias bat="batcat"
+alias cat='bat --color=always'
+
+# Navigation
+alias -- -="cd -"
+alias d='dirs -v | head -10'
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# File Manipulation
+alias rd="rmdir"
+alias md='echo "use mkd to mkdir and cd into it"'
+alias mmv="noglob zmv -W"
+
+# File size
+alias fs="stat -f \"%z bytes\""
+
+# Search
+alias grep='grep --color=auto --exclude-dir={.bzr,.cvs,.git,.hg,.svn}'
+alias afind='ack-grep -il'
+
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+  colorflag="--color"
+else # OS X `ls`
+  colorflag="-G"
+fi
+
+# Listing Aliases
+# List all files colorized in long format
+alias l="ls -lah ${colorflag}"
+alias ll="ls -lh ${colorflag}"
+
+# List symlinks
+alias lsym="ls -la . | grep \"\->\""
+
+# List all files colorized in long format, including dot files
+alias la="ls -lAh ${colorflag}"
+
+# List only directories
+alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
+
+# Always use color output for `ls`
+alias ls="command ls ${colorflag}"
+export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+
+
+# ------------ APPLICATIONS -------------
+# Shortcuts
+alias vim=nvim
+alias vi=nvim
+alias v=nvim
+
+# Tmux
+alias tmxa="tmux a -t"
+alias tmx0="tmux a -t 0"
+
+# Git
+alias ga='git add'
+alias gaa='git add -A'
+#stage all but untracked files
+alias gau='git add -u'
+# alias gap='echo "Applying patch " && echo ~/Downloads/*.patch(mh-1[1]) && git apply ~/Downloads/*.patch(mh-1[1])'
+alias gaac='git add -A && git commit -m'
+
+# list local branches
+alias gb='for k in `git branch|perl -pe "s/^..//"`;do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k|head -n 1`\\t$k;done|sort'
+# list all branches, local and remote
+alias gba='git branch -a'
+# list remote branches
+alias gbr='git branch --remote'
+# rename branch. While on the branch you want to rename:
+alias gbren='git branch -m '
+
+alias gc='git commit -v'
+alias gc!='git commit -v --amend'
+alias gca='git commit -v -a'
+alias gca!='git commit -v -a --amend'
+alias gcln='git clean -fd'
+alias gcm='git commit -m'
+alias gcs='git commit -S'
+
+alias gco='git checkout'
+alias gco-='git checkout -'
+alias gcob='git checkout -b'
+alias gcom='git checkout master'
+
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gdt='git difftool'
+
+alias gf='git fetch'
+
+alias gpl='git pull'
+alias gplr='git pull --rebase'
+
+alias gprep='less ~/dotfiles/gitprep.txt'
+
+alias gignore='git update-index --assume-unchanged'
+alias gignored='git ls-files -v | grep "^[[:lower:]]"'
+
+alias glg='git log --stat --max-count=10'
+alias glgg='git log --graph --max-count=10'
+alias glgga='git log --graph --decorate --all'
+alias glo='git log --oneline --decorate --color'
+alias globurl='noglob urlglobber '
+alias glog='git log --oneline --decorate --color --graph'
+
+alias gm='git merge'
+alias gmt='git mergetool --no-prompt'
+
+alias gp='echo use "gpsh"'
+alias gpsh='git push'
+
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbs='git rebase --skip'
+alias grbi='git rebase -i'
+alias grbm='git rebase master'
+alias grbim='git rebase -i master'
+
+alias grsclean='git reset --hard && git clean -dfx'
+alias grshom='git reset --hard origin/master'
+alias grshod='git reset --hard origin/develop'
+
+alias gr='git remote'
+alias grmv='git remote rename'
+alias grrm='git remote remove'
+alias grset='git remote set-url'
+alias grt='cd $(git rev-parse --show-toplevel || echo ".")'
+alias grup='git remote update'
+
+alias grv='git review'
+alias grvu='git review update'
+alias grvc='git review create --no-prompt'
+alias grvd='git review dcommit'
+
+alias gss='git status -s'
+alias gst='git status'
+
+alias gsta='git stash'
+alias gstal='git stash list'
+alias gsta0='git stash apply "stash@{0}"'
+alias gsta1='git stash apply "stash@{1}"'
+alias gsta2='git stash apply "stash@{2}"'
+alias gstad='git stash drop'
+alias gstap='git stash pop'
+alias gstas='git stash show --text'
+
+alias gsuba='git submit --async'
+
+# git track
+alias gtm='git branch -u origin/master'
+
+alias gunstage="git reset --"
+alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
+alias gwho='git config user.name && git config user.email'
+
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+#alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
+
+# Enable aliases to be sudo’ed
+alias please='sudo'
+alias sudo='sudo '
+
+# Get week number
+alias week='date +%V'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# OS X has no `md5sum`, so use `md5` as a fallback
+command -v md5sum > /dev/null || alias md5sum="md5"
+
+# OS X has no `sha1sum`, so use `shasum` as a fallback
+command -v sha1sum > /dev/null || alias sha1sum="shasum"
+
+
+
+# ------------ SYSTEM -------------
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="echo 'Reloading $SHELL' && exec $SHELL -l"
+alias relzsh=". ~/.zshrc && echo 'zsh reloaded'"
+
+# Canonical hex dump; some systems have this symlinked
+command -v hd > /dev/null || alias hd="hexdump -C"
+
+# Trim new lines and copy to clipboard
+alias c="tr -d '\n' | pbcopy"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
+# (useful when executing time-consuming commands)
+alias badge="tput bel"
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+  alias "$method"="lwp-request -m '$method'"
+done
+
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# ------------ NETWORK -------------
+# Enhanced WHOIS lookups
+alias whois="whois -h whois-servers.net"
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Flush Directory Service cache
+alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+
+# View HTTP traffic
+alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
